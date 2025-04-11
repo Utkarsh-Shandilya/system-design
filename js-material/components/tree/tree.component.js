@@ -1,3 +1,11 @@
+function handleIconClick(event, childContainer, icon) {
+    event.preventDefault();
+    event.stopPropagation();
+    const isHidden = childContainer.style.display === 'none';
+    childContainer.style.display = isHidden ? 'block' : 'none';
+    icon.textContent = isHidden ? '\u25BC' : '\u25B6';
+}
+
 function createElement(type, styleProps = {}, attrProps = {}, events = {}) {
     const newElement = document.createElement(type);
     for (let attr in attrProps) newElement[attr] = attrProps[attr];
@@ -37,7 +45,7 @@ function createTreeStructure(elementObj, parentElement = document.getElementById
             createTreeStructure(child, childContainer);
         });
 
-        // Add event handler
+        icon.addEventListener('click', (e) => handleIconClick(e, childContainer, icon));
     }
 }
 
