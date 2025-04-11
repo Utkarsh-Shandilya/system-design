@@ -3,7 +3,20 @@ function createElement(type, styleProps = {}, attrProps = {}, events = {}) {
 }
 
 function createNode(elementDetails, parentElement) {
-    // Add create node function def
+    const liElement = createElement('li', { margin: '5px 0' });
+    const label = createElement('label', { cursor: 'pointer' });
+    const checkboxElement = createElement('input', { marginRight: '8px' }, { type: 'checkbox' });
+    let icon;
+    if (Array.isArray(elementDetails.children)) {
+        icon = createElement('span', { marginRight: '6px', display: 'inline-block', width: '12px' }, { textContent: '\u25BC' });
+        label.appendChild(icon);
+    }
+    label.appendChild(checkboxElement);
+    label.appendChild(document.createTextNode(elementDetails.value));
+    liElement.appendChild(label);
+    parentElement.appendChild(liElement);
+
+    return { liElement, icon };
 }
 
 function createTreeStructure(elementObj, parentElement = document.getElementById("container")) {
