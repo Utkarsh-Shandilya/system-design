@@ -1,5 +1,9 @@
 function createElement(type, styleProps = {}, attrProps = {}, events = {}) {
-    // Add create element function def
+    const newElement = document.createElement(type);
+    for (let attr in attrProps) newElement[attr] = attrProps[attr];
+    for (let item in styleProps) newElement.style[item] = styleProps[item];
+    for (let evt in events) newElement.addEventListener(evt, events[evt]);
+    return newElement;
 }
 
 function createNode(elementDetails, parentElement) {
